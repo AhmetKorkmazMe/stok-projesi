@@ -1,0 +1,8 @@
+{
+    "barcode": "Barkod",
+    "brand": "Marka",
+    "current_price": "Fiyat",
+    "product_name": "Ürün Adı",
+    "sku": "Satıcı Stok Kodu",
+    "stock_to_update": "Stok"
+}

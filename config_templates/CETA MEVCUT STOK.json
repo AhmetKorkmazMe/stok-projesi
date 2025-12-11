@@ -1,0 +1,7 @@
+{
+    "brand": "brand",
+    "product_name": "rootlabel",
+    "selling_price": "price1",
+    "sku": "stockCode",
+    "stock": "stockAmount"
+}

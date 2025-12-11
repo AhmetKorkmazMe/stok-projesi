@@ -1,0 +1,9 @@
+{
+    "barcode": "Barkod",
+    "brand": "Marka",
+    "current_price": "Trendyol'da Satılacak Fiyat (KDV Dahil)",
+    "description": "Ürün Açıklaması",
+    "product_name": "Ürün Adı",
+    "sku": "Model Kodu",
+    "stock_to_update": "Ürün Stok Adedi"
+}

@@ -1,0 +1,8 @@
+{
+    "barcode": "stockCode",
+    "brand": "brand",
+    "current_price": "price1",
+    "product_name": "rootlabel",
+    "sku": "stockCode",
+    "stock_to_update": "stockAmount"
+}
