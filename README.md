@@ -64,14 +64,14 @@ Sistemin çekirdeğini `UniversalSmartMatcher` sınıfı oluşturur. Eşleşme 3
 Kullanıcıların kod yazmadan, doğal dil ile karmaşık fiyatlandırma senaryoları oluşturmasını sağlar.
 
 * **Döviz Endeksleme:**
-    * Komut: 
+    * Komut: `MAKITA GUNCEL KURA ESITLE`
     * İşlem: TCMB kurunu çeker ve uygular.
 * **Matematiksel İşlem:**
-    * Komut: 
+    * Komut: `BOSCH %10 ZAM YAP`
     * İşlem: Maliyet üzerine %10 ekler.
 * **Kur Çevrimi:**
-    * Komut: 
-    * İşlem: 
+    * Komut: `ESKI_KUR=32.50 YENI KURA CEVIR`
+    * İşlem: `(Fiyat / 32.50) * Güncel_Kur`
 
 ---
 
@@ -107,11 +107,8 @@ Projeyi kendi sunucunuzda Docker ile ayağa kaldırmak için:
 
 ```bash
 # 1. Projeyi klonlayın
-git clone https://github.com/AhmetKorkmazMe/stok-projesi.git
+git clone [https://github.com/AhmetKorkmazMe/stok-projesi.git](https://github.com/AhmetKorkmazMe/stok-projesi.git)
 cd stok-projesi
 
 # 2. Docker ile başlatın
 docker-compose up -d --build
-```
-
-Tarayıcınızdan `http://localhost:5000` adresine giderek arayüze erişebilirsiniz.
