@@ -1,0 +1,233 @@
+/* --- MODERN RESET & DEĞİŞKENLER --- */
+:root {
+    --primary: #0f766e;         /* Petrol Yeşili - Ana Renk */
+    --primary-hover: #115e59;   /* Hover Durumu */
+    --secondary: #ffffff;       /* Kart Arka Planı */
+    --bg-body: #f8fafc;         /* Sayfa Arka Planı (Daha Soğuk Gri) */
+    --text-main: #1e293b;       /* Ana Metin - Slate 800 */
+    --text-muted: #64748b;      /* Pasif Metin - Slate 500 */
+    --border: #e2e8f0;          /* Kenarlıklar */
+    --danger: #ef4444;          /* Hata/Silme Rengi */
+    --success: #10b981;         /* Başarı Rengi */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 16px;             /* Daha Yumuşak Köşeler */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding-bottom: 60px;
+}
+
+/* --- HEADER (DASHBOARD STİLİ) --- */
+.site-header {
+    background: var(--secondary);
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Logoyu ve yazıyı ortalar */
+    gap: 15px;
+}
+
+.site-logo {
+    height: 50px; /* Logo yüksekliği */
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-text h1 {
+    font-size: 1.8rem;
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.1;
+    text-align: left;
+}
+
+.brand-text .subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin: 0;
+}
+
+.version-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+/* --- CONTAINER & STEPS --- */
+.container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.wizard-step {
+    background: var(--secondary);
+    border-radius: var(--radius);
+    padding: 3rem;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.5s ease-out;
+    border: 1px solid var(--border);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 { 
+    border-bottom: 1px solid var(--border); 
+    padding-bottom: 15px; 
+    margin-bottom: 25px; 
+    color: var(--text-main); 
+    font-size: 1.4rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+h3 { color: var(--text-main); font-size: 1.1rem; margin: 1.5rem 0 1rem 0; font-weight: 600; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+/* --- NAVIGASYON --- */
+#wizard-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+    padding: 5px;
+    background: #e2e8f0;
+    border-radius: 50px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#wizard-nav button {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 8px 20px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+#wizard-nav button.active {
+    background: var(--secondary);
+    color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#wizard-nav button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* --- FORMLAR --- */
+.form-group { margin-bottom: 1.5rem; }
+label { display: block; margin-bottom: 6px; font-weight: 600; color: #475569; font-size: 0.95rem; }
+
+input[type="text"], input[type="number"], select {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 1rem; background-color: #f8fafc;
+    transition: all 0.2s; color: var(--text-main);
+}
+
+input:focus, select:focus {
+    outline: none; border-color: var(--primary); background-color: white;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+.input-group { display: flex; gap: 20px; margin-bottom: 1rem; }
+
+/* --- DROPZONE --- */
+.dropzone-like {
+    border: 2px dashed #cbd5e1; border-radius: var(--radius);
+    padding: 2rem; text-align: center; background-color: #f8fafc;
+    cursor: pointer; transition: all 0.3s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 130px;
+}
+.dropzone-like:hover { border-color: var(--primary); background-color: #f0fdfa; }
+.dropzone-like input[type="file"] { display: none; }
+.dz-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; opacity: 0.8; }
+.dz-like-text { font-weight: 500; color: var(--text-muted); }
+
+/* --- BUTONLAR --- */
+.primary-btn {
+    background-color: var(--primary); color: white; border: none;
+    padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.primary-btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.2); }
+.primary-btn:active { transform: translateY(0); }
+
+.secondary-btn { background-color: white; color: var(--primary); border: 1px solid var(--primary); }
+.secondary-btn:hover { background-color: #f0fdfa; }
+
+.danger-btn { background-color: #fee2e2; color: #dc2626; border: 1px solid #fecaca; padding: 8px 16px; font-size: 0.9rem; border-radius: 6px; }
+.danger-btn:hover { background-color: #fecaca; }
+
+.hidden { display: none !important; }
+
+/* --- DİĞERLERİ --- */
+.radio-group {
+    background: white; border: 1px solid var(--border); padding: 12px 16px;
+    border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center;
+    cursor: pointer; transition: all 0.2s;
+}
+.radio-group:hover { border-color: var(--primary); }
+.radio-group input { margin-right: 12px; width: 18px; height: 18px; accent-color: var(--primary); }
+.radio-group label { margin: 0; cursor: pointer; font-weight: 500; color: var(--text-main); }
+
+.rate-display {
+    background: #f0fdfa; border: 1px solid #ccfbf1; color: #0f766e;
+    padding: 1rem; border-radius: 8px; margin-top: 1rem; font-weight: 500; text-align: center;
+}
+
+.success-message { background-color: #dcfce7; color: #166534; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid #bbf7d0; text-align: center; font-weight: 600; }
+.error-message { background-color: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #fecaca; display: none; font-weight: 500; }
+
+.loader { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: none; margin: 0 auto; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- MODAL --- */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(4px); }
+.modal-content { background: white; padding: 2.5rem; border-radius: var(--radius); width: 90%; max-width: 550px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+
+/* --- FOOTER & INFO --- */
+.site-footer { text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+.site-footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+.accordion-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: white; }
+.accordion-header { width: 100%; background: #f8fafc; border: none; padding: 15px 20px; text-align: left; font-weight: 600; cursor: pointer; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
+.accordion-header:hover { background: #f1f5f9; }
+.accordion-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; background: white; color: #475569; }
+
+@media (max-width: 768px) {
+    .input-group { flex-direction: column; gap: 10px; }
+    .header-content { flex-direction: column; }
+    .site-logo { margin-bottom: 10px; }
+    h1 { font-size: 1.5rem; }
+}

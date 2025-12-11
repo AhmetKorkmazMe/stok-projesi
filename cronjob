@@ -1,0 +1,7 @@
+# Her saat başı çalış (0 * * * *)
+# /app/temp_results klasöründeki
+# .json ile biten
+# 1440 dakikadan (24 saat) eski dosyaları bul ve sil (-exec rm {} \;)
+# Logları ana konteyner loguna yazdır
+0 * * * * find /app/temp_results -name "*.json" -mmin +1440 -exec rm {} \; > /proc/1/fd/1 2>/proc/1/fd/2
+# Son satırın boş olduğundan emin ol

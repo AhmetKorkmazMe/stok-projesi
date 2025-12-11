@@ -1,0 +1,8 @@
+flask
+pandas
+numpy
+openpyxl
+gunicorn
+requests
+xlrd
+scikit-learn

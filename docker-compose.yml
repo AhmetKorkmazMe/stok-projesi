@@ -1,0 +1,29 @@
+version: '3'
+services:
+  stok-projesi:
+    build: .
+    container_name: stok-projesi
+    restart: always
+    environment:
+      - PYTHONUNBUFFERED=1  # Logların takılmadan anlık akmasını sağlar
+    volumes:
+      - .:/app
+    
+    # PERFORMANS AYARLARI:
+    # - workers 3: RAM kullanımını dengeler (Çoklu çekirdek kullanımı).
+    # - timeout 900: 15 Dakika süre tanır (Büyük dosyalar asla kesilmez).
+    # - keep-alive 5: Bağlantı kopmalarını önler.
+    command: gunicorn --bind 0.0.0.0:5000 --workers 3 --worker-class sync --timeout 900 --keep-alive 5 app:app
+
+    networks:
+      - traefik-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.stok.rule=Host(`stok.ahmetkorkmaz.me`)"
+      - "traefik.http.routers.stok.entrypoints=websecure"
+      - "traefik.http.routers.stok.tls.certresolver=letsencrypt"
+      - "traefik.http.services.stok.loadbalancer.server.port=5000"
+
+networks:
+  traefik-proxy:
+    external: true

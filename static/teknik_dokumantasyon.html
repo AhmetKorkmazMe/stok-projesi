@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stokçu - Teknik Dokümantasyon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* COLOR PALETTE: Engineering Teal & Slate */
+            --primary: #0F766E;
+            --primary-dark: #134e4a;
+            --primary-light: #ccfbf1;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+        }
+
+        /* RESET & BASE */
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        h1, h2, h3, h4 { color: var(--text-main); margin-top: 0; letter-spacing: -0.02em; }
+        strong { color: var(--text-main); font-weight: 600; }
+
+        /* LAYOUT */
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+        }
+
+        /* SIDEBAR NAV */
+        aside {
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+            padding: 40px 0;
+        }
+        .nav-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 700; margin-bottom: 15px; }
+        .nav-links { list-style: none; padding: 0; margin: 0; }
+        .nav-links li { margin-bottom: 8px; }
+        .nav-links a { display: block; padding: 8px 12px; border-radius: 6px; font-size: 0.95rem; color: var(--text-muted); }
+        .nav-links a:hover, .nav-links a.active { background: #e2e8f0; color: var(--text-main); font-weight: 500; }
+        .btn-home { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; margin-bottom: 30px; }
+        .btn-home:hover { background: var(--primary-dark); }
+
+        /* MAIN CONTENT */
+        main { padding: 60px 0 100px 0; }
+
+        /* HEADER SECTION */
+        .paper-header { margin-bottom: 60px; border-bottom: 1px solid var(--border); padding-bottom: 40px; }
+        .paper-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary); margin-bottom: 10px; }
+        h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+        .abstract { font-size: 1.25rem; color: var(--text-muted); max-width: 800px; line-height: 1.6; }
+
+        /* CONTENT SECTIONS */
+        section { margin-bottom: 80px; scroll-margin-top: 40px; }
+        h2 { font-size: 1.8rem; border-bottom: 2px solid var(--border); padding-bottom: 15px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        h2 .num { background: var(--primary-light); color: var(--primary); font-size: 1rem; padding: 4px 12px; border-radius: 99px; }
+        
+        h3 { font-size: 1.3rem; margin-top: 40px; margin-bottom: 15px; color: var(--text-main); }
+        p { margin-bottom: 20px; }
+
+        /* TECHNICAL CARDS */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px 0; }
+        
+        .card { background: var(--bg-card); border: 1px solid var(--border); padding: 25px; border-radius: 12px; transition: transform 0.2s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); }
+        .card-icon { font-size: 2rem; margin-bottom: 15px; display: block; }
+        .card h4 { margin: 0 0 10px 0; font-size: 1.1rem; }
+        .card p { font-size: 0.9rem; margin: 0; line-height: 1.5; }
+
+        /* WORKFLOW TABLE */
+        .process-row { display: flex; gap: 20px; align-items: stretch; margin-bottom: 20px; }
+        .process-step-num { min-width: 40px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #cbd5e1; font-size: 1.5rem; }
+        .process-card { flex: 1; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; position: relative; }
+        .process-card.ui { border-left: 4px solid #3b82f6; }
+        .process-card.tech { border-left: 4px solid #0f766e; background: #f0fdfa; }
+        .process-label { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; display: block; letter-spacing: 0.5px; }
+        .ui .process-label { color: #3b82f6; }
+        .tech .process-label { color: #0f766e; }
+        .tech-func { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: rgba(15, 118, 110, 0.1); padding: 2px 6px; border-radius: 4px; color: #0f766e; }
+
+        /* CODE BLOCKS */
+        pre { background: var(--code-bg); color: #f8fafc; padding: 20px; border-radius: 8px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; border-left: 4px solid var(--primary); }
+        code { font-family: 'JetBrains Mono', monospace; color: #ec4899; background: #fdf2f8; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+
+        /* TABLES */
+        table.std-table { width: 100%; border-collapse: collapse; margin: 30px 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        table.std-table th { background: #f1f5f9; text-align: left; padding: 12px 20px; font-weight: 600; color: var(--text-main); font-size: 0.9rem; }
+        table.std-table td { padding: 12px 20px; border-top: 1px solid var(--border); font-size: 0.95rem; }
+
+        /* WARNING BOX */
+        .warning-box { background-color: #fffbeb; border-left: 5px solid #f59e0b; padding: 25px; border-radius: 8px; margin-top: 20px; color: #92400e; }
+        .warning-title { font-weight: 800; font-size: 1.1rem; display: block; margin-bottom: 10px; color: #b45309; }
+        
+        /* FOOTER */
+        .paper-footer { border-top: 1px solid var(--border); padding-top: 40px; margin-top: 80px; font-size: 0.9rem; color: #94a3b8; display: flex; justify-content: space-between; }
+
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; gap: 0; }
+            aside { display: none; }
+            h1 { font-size: 2rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .process-row { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <aside>
+        <a href="/" class="btn-home">← Uygulamaya Dön</a>
+        <div class="nav-title">İÇİNDEKİLER</div>
+        <ul class="nav-links">
+            <li><a href="#intro">1. Giriş ve Amaç</a></li>
+            <li><a href="#workflow">2. Süreç Haritası</a></li>
+            <li><a href="#architecture">3. Sistem Mimarisi</a></li>
+            <li><a href="#algorithm">4. Algoritmik Metodoloji</a></li>
+            <li><a href="#nlp-engine">5. NLP Fiyatlandırma</a></li>
+            <li><a href="#tech-stack">6. Teknoloji Yığını</a></li>
+            <li><a href="#user-guide">7. Rapor Yorumlama</a></li>
+            <li><a href="#installation">8. Kurulum Rehberi</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <header class="paper-header">
+            <div class="paper-meta">STOKÇU • TECHNICAL WHITEPAPER</div>
+            <h1>Stok Entegrasyon ve Dinamik Fiyatlandırma Sistemi</h1>
+            <p class="abstract">
+                Bu doküman, e-ticaret operasyonlarında dağınık ve standart dışı veri kaynaklarını birleştirmek, vektörel uzayda ürün eşleştirmesi yapmak ve doğal dil işleme (NLP) tabanlı dinamik fiyatlandırma kuralları uygulamak için geliştirilmiş <strong>Stokçu (PFSM Engine)</strong> motorunun teknik detaylarını içerir.
+            </p>
+        </header>
+
+        <section id="intro">
+            <h2><span class="num">01</span> Giriş ve Problem Tanımı</h2>
+            <p>E-ticaret ekosisteminde, farklı tedarikçilerden (XML, Excel) gelen verilerin pazar yerleri (Trendyol, Hepsiburada) ile senkronize edilmesi karmaşık bir problemdir. Temel zorluklar şunlardır:</p>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Veri Standardizasyonu Sorunu</h4>
+                    <p>Tedarikçiler aynı ürünü farklı isimlerle tanımlar (Örn: "Bosch GSB 180" vs "Gsr 180-Li Matkap"). Klasik "Exact Match" algoritmaları bu durumda başarısız olur.</p>
+                </div>
+                <div class="card">
+                    <h4>Yanlış Eşleşme Riski</h4>
+                    <p>Fuzzy (bulanık) arama algoritmaları, "Bosch Matkap Ucu" ile "Bosch Matkap" ürününü yanlış eşleştirerek büyük finansal zararlara yol açabilir (False Positive).</p>
+                </div>
+            </div>
+            <p><strong>Çözüm:</strong> Stokçu, deterministik ve olasılıksal yöntemleri birleştiren hibrit bir yapı kullanır. Ürünleri sadece isme göre değil, model kodu, teknik özellik ve vektörel benzerliklerine göre analiz eder.</p>
+        </section>
+
+        <section id="workflow">
+            <h2><span class="num">02</span> Kullanıcı İşlemleri ve Teknik Karşılıkları</h2>
+            <p>Aşağıdaki tablo, kullanıcının arayüzde (Frontend) gerçekleştirdiği işlemlerin arka planda (Backend) hangi Python fonksiyonları ve teknik süreçlerle yönetildiğini göstermektedir.</p>
+            
+            <div class="process-row">
+                <div class="process-step-num">1</div>
+                <div class="process-card ui">
+                    <span class="process-label">Kullanıcı Arayüzü (Adım 1)</span>
+                    <strong>Sistem Açılışı ve Ayarlar</strong>
+                    <p>Kullanıcı sayfayı açtığında sistem otomatik olarak güncel kurları ve şablonları kontrol eder.</p>
+                </div>
+                <div class="process-card tech">
+                    <span class="process-label">Arka Plan (Backend)</span>
+                    <strong>XML Parsing & State Management</strong>
+                    <p><code>fetch_exchange_rates()</code> fonksiyonu TCMB API'sine bağlanır, XML'i parse eder ve USD/EUR kurlarını hafızaya (RAM) alır.</p>
+                </div>
+            </div>
+
+            <div class="process-row">
+                <div class="process-step-num">2</div>
+                <div class="process-card ui">
+                    <span class="process-label">Kullanıcı Arayüzü (Adım 2 & 3)</span>
+                    <strong>Dosya Yükleme (Excel/XML/CSV)</strong>
+                    <p>İç stok ve tedarikçi dosyaları yüklenir. Sütun eşleşmeleri (Mapping) yapılır.</p>
+                </div>
+                <div class="process-card tech">
+                    <span class="process-label">Arka Plan (Backend)</span>
+                    <strong>Pandas ETL & Normalization</strong>
+                    <p><code>read_and_normalize_file()</code> fonksiyonu dosyaları okur. Pandas ve OpenPyXL kullanarak; sütun isimlerini (Örn: "Stok_Adedi" -> "Stock") JSON şablonuna göre standardize eder ve temizler.</p>
+                </div>
+            </div>
+
+            <div class="process-row">
+                <div class="process-step-num">3</div>
+                <div class="process-card ui">
+                    <span class="process-label">Kullanıcı Arayüzü (Adım 4)</span>
+                    <strong>NLP Kural Girişi</strong>
+                    <p>Kullanıcı: "TÜM BOSCH ÜRÜNLERİNE %10 ZAM YAP" gibi komutlar yazar.</p>
+                </div>
+                <div class="process-card tech">
+                    <span class="process-label">Arka Plan (Backend)</span>
+                    <strong>Regex Parsing Engine</strong>
+                    <p><code>parse_natural_language_rules()</code> fonksiyonu metni analiz eder. <span class="tech-func">Target: BOSCH</span>, <span class="tech-func">Action: Multiplier</span>, <span class="tech-func">Value: 1.10</span> objesini oluşturur.</p>
+                </div>
+            </div>
+
+            <div class="process-row">
+                <div class="process-step-num">4</div>
+                <div class="process-card ui">
+                    <span class="process-label">Kullanıcı Arayüzü (Sonuç)</span>
+                    <strong>Analizi Başlat & Raporlama</strong>
+                    <p>Kullanıcı işlemi başlatır ve ilerleme çubuğunu takip eder.</p>
+                </div>
+                <div class="process-card tech">
+                    <span class="process-label">Arka Plan (Backend)</span>
+                    <strong>Vector Matching & Threading</strong>
+                    <p><code>UniversalSmartMatcher.run_engine()</code> TF-IDF algoritmasını çalıştırır. İşlem uzun sürdüğü için <code>threading</code> ile asenkron yönetilir ve <code>/api/jobs/status</code> endpoint'i üzerinden durum bildirilir.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2><span class="num">03</span> Sistem Mimarisi</h2>
+            <p>Uygulama, ölçeklenebilirlik ve izolasyon prensipleri gözetilerek <strong>Mikroservis</strong> benzeri bir yapıda, Docker konteynerleri üzerinde çalışmaktadır.</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <span class="card-icon">🐳</span>
+                    <h4>Docker Runtime</h4>
+                    <p>Uygulama, <code>python:3.10-slim</code> imajı üzerinde çalışır. Bu imaj, gereksiz sistem dosyalarından arındırılmış, sadece uygulamanın ihtiyaç duyduğu bağımlılıkları (Pandas, Scikit-learn) barındıran izole bir ortamdır.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⚡</span>
+                    <h4>Gunicorn WSGI Server</h4>
+                    <p>Python'un tek iş parçacıklı yapısını aşmak için <code>--workers 3</code> konfigürasyonu ile çalışır. Bu sayede sistem aynı anda birden fazla dosya işleme talebini (Concurrency) CPU çekirdeklerine dağıtarak karşılar.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🛡️</span>
+                    <h4>Traefik Reverse Proxy</h4>
+                    <p>Sistem, dış dünyaya doğrudan değil, <code>Traefik</code> üzerinden açılır. Traefik, gelen trafiği karşılar, SSL sertifikalarını (Let's Encrypt) otomatik yeniler ve yük dengeleme (Load Balancing) yapar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="algorithm">
+            <h2><span class="num">04</span> Algoritmik Metodoloji</h2>
+            <p>Sistemin çekirdeğini <code>UniversalSmartMatcher</code> sınıfı oluşturur. Bu sınıf, ürün eşleştirmesinde 3 katmanlı bir filtreleme uygular.</p>
+
+            <h3>Katman 1: Normalizasyon ve Tokenizasyon</h3>
+            <p>Ham metin verisi temizlenir. Türkçe karakterler (ı->i, ş->s) dönüştürülür, ölçü birimleri (mm, watt, volt) standartlaştırılır ve gürültü kelimeler (kargo, bedava) atılır.</p>
+
+            <h3>Katman 2: TF-IDF ve Kosinüs Benzerliği</h3>
+            <p>Ürün isimleri, <strong>Term Frequency-Inverse Document Frequency (TF-IDF)</strong> yöntemiyle vektör uzayına taşınır. İki ürün arasındaki anlamsal mesafe hesaplanır.</p>
+            <ul>
+                <li><strong>Vektör Uzayı:</strong> Her kelime bir boyut olarak kabul edilir.</li>
+                <li><strong>Benzerlik Skoru:</strong> 0.0 ile 1.0 arasında bir değer üretilir. (1.0 = Tam Eşleşme).</li>
+            </ul>
+
+            <h3>Katman 3: Heuristic Kurallar ve Güvenlik Duvarı</h3>
+            <p>Yüksek benzerlik skoru tek başına yeterli değildir. Aşağıdaki mantıksal kurallar devreye girer:</p>
+            <table class="std-table">
+                <tr>
+                    <th>Kural Adı</th>
+                    <th>Açıklama</th>
+                    <th>Örnek Durum</th>
+                </tr>
+                <tr>
+                    <td><strong>Brand Conflict</strong></td>
+                    <td>Farklı markaların eşleşmesini engeller.</td>
+                    <td><code>Bosch</code> ≠ <code>Makita</code> (Skor 0.95 olsa bile RED)</td>
+                </tr>
+                <tr>
+                    <td><strong>Set Conflict</strong></td>
+                    <td>Paket miktarlarını kontrol eder.</td>
+                    <td><code>10'lu Set</code> ≠ <code>Tekli</code> (RED)</td>
+                </tr>
+                <tr>
+                    <td><strong>Golden Code</strong></td>
+                    <td>Ürün isminde geçen benzersiz model kodunu yakalar.</td>
+                    <td>"GSR-120-LI" kodu her iki tarafta varsa ONAY.</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="nlp-engine">
+            <h2><span class="num">05</span> NLP Fiyatlandırma Motoru</h2>
+            <p>Kullanıcıların SQL veya Python kodu yazmadan, doğal dil ile karmaşık fiyatlandırma senaryoları oluşturmasını sağlayan kural tabanlı bir motordur. <code>parse_natural_language_rules</code> fonksiyonu metni analiz eder.</p>
+
+            <h3>Desteklenen Komut Yapıları</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Döviz İşlemleri</h4>
+                    <p><strong>Komut:</strong> <code>BOSCH GUNCEL KURA ESITLE</code></p>
+                    <p><strong>Aksiyon:</strong> TCMB'den anlık USD/EUR kurunu çeker ve ürünün baz fiyatını bu kurla çarpar.</p>
+                </div>
+                <div class="card">
+                    <h4>Kur Çevrimi (Cross Rate)</h4>
+                    <p><strong>Komut:</strong> <code>ESKI_KUR=32.50 YENI KURA CEVIR</code></p>
+                    <p><strong>Formül:</strong> <code>(Fiyat / 32.50) * Güncel_Kur</code></p>
+                </div>
+                <div class="card">
+                    <h4>Matematiksel İşlemler</h4>
+                    <p><strong>Komut:</strong> <code>MAKITA %10 ZAM YAP</code></p>
+                    <p><strong>Formül:</strong> <code>Fiyat * 1.10</code></p>
+                </div>
+                <div class="card">
+                    <h4>Sabitleme</h4>
+                    <p><strong>Komut:</strong> <code>R18-256 5000 TL OLSUN</code></p>
+                    <p><strong>Aksiyon:</strong> Ürünün fiyatını doğrudan 5000 TL yapar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech-stack">
+            <h2><span class="num">06</span> Teknoloji Yığını</h2>
+            <p>Projede kullanılan kütüphaneler ve versiyon bilgileri:</p>
+            <table class="std-table">
+                <tr>
+                    <th>Bileşen</th>
+                    <th>Teknoloji / Kütüphane</th>
+                    <th>Kullanım Amacı</th>
+                </tr>
+                <tr>
+                    <td><strong>Core</strong></td>
+                    <td>Python 3.10</td>
+                    <td>Ana programlama dili.</td>
+                </tr>
+                <tr>
+                    <td><strong>Web Framework</strong></td>
+                    <td>Flask 2.x</td>
+                    <td>REST API endpoint yönetimi.</td>
+                </tr>
+                <tr>
+                    <td><strong>Data Processing</strong></td>
+                    <td>Pandas, NumPy</td>
+                    <td>Vektörel veri işleme ve matris operasyonları.</td>
+                </tr>
+                <tr>
+                    <td><strong>Machine Learning</strong></td>
+                    <td>Scikit-Learn</td>
+                    <td>TF-IDF Vektörleştirme ve Cosine Similarity.</td>
+                </tr>
+                <tr>
+                    <td><strong>File I/O</strong></td>
+                    <td>OpenPyXL, Xlrd</td>
+                    <td>Excel dosyalarını (.xlsx, .xls) okuma ve yazma modülleri.</td>
+                </tr>
+                <tr>
+                    <td><strong>Integration</strong></td>
+                    <td>Requests</td>
+                    <td>TCMB (Merkez Bankası) API XML entegrasyonu.</td>
+                </tr>
+                <tr>
+                    <td><strong>Server</strong></td>
+                    <td>Gunicorn</td>
+                    <td>Production seviyesi WSGI uygulama sunucusu.</td>
+                </tr>
+                <tr>
+                    <td><strong>Deployment</strong></td>
+                    <td>Docker, Traefik</td>
+                    <td>Konteynerizasyon ve SSL Proxy.</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="user-guide">
+            <h2><span class="num">07</span> Rapor Yorumlama ve Sorumluluk</h2>
+            <p>Sistem çıktısı olan Excel dosyası 3 ana sayfadan oluşur. Ancak bu sonuçlar nihai karar olarak değil, öneri olarak değerlendirilmelidir.</p>
+            
+            <div class="warning-box">
+                <span class="warning-title">⚠️ YASAL UYARI VE SORUMLULUK REDDİ</span>
+                <p>Bu yazılım (Stokçu), stok ve fiyat eşleştirmeleri için bir <strong>Karar Destek Sistemi (Decision Support System)</strong> olarak tasarlanmıştır. Algoritmik eşleştirmeler %100 doğruluk garantisi vermez.</p>
+                <p>Kullanıcı, pazar yerine veri yüklemeden önce özellikle <strong>Algoritma Skoru</strong> düşük olan satırları, fiyat farklarını ve stok miktarlarını manuel olarak kontrol etmekle yükümlüdür. Yazılımın ürettiği sonuçlardan doğabilecek ticari zararlardan (yanlış fiyatla satış vb.) geliştirici sorumlu tutulamaz.</p>
+            </div>
+
+            <h3>Algoritma Skoru Nasıl Yorumlanmalı?</h3>
+            <ul>
+                <li><strong>Skor > 85 (Yeşil Bölge):</strong> Çok Yüksek Güven. Metinler ve kodlar büyük oranda uyuşuyor.</li>
+                <li><strong>Skor 50 - 85 (Sarı Bölge):</strong> Orta Güven. İsim benzerliği var ancak model kodu veya paket içeriği farklı olabilir. Kontrol edilmelidir.</li>
+                <li><strong>Skor < 50 (Kırmızı Bölge):</strong> Düşük Güven. Eşleşme zayıftır, büyük ihtimalle farklı ürünlerdir. Manuel müdahale şarttır.</li>
+            </ul>
+        </section>
+
+        <section id="installation">
+            <h2><span class="num">08</span> Kurulum ve Kendi Sunucunuzda Çalıştırma</h2>
+            <p>Stokçu, açık kaynaklı yapısı sayesinde kendi Linux (Ubuntu/Debian) sunucunuzda veya yerel makinenizde Docker kullanılarak kolayca ayağa kaldırılabilir.</p>
+
+            <h3>Gereksinimler</h3>
+            <ul>
+                <li>Docker ve Docker Compose</li>
+                <li>Git</li>
+                <li>Minimum 2GB RAM (Pandas işlemleri için)</li>
+            </ul>
+
+            <h3>Adım 1: Projeyi Klonlayın</h3>
+            <pre><code>git clone https://github.com/AhmetKorkmazMe/stok-projesi.git
+cd stok-projesi</code></pre>
+
+            <h3>Adım 2: Yapılandırma ve Derleme</h3>
+            <p>Docker imajını oluşturun ve konteynerleri başlatın. İlk derleme işlemi internet hızınıza bağlı olarak 2-5 dakika sürebilir.</p>
+            <pre><code>docker-compose build
+docker-compose up -d</code></pre>
+
+            <h3>Adım 3: Erişim</h3>
+            <p>Kurulum tamamlandığında tarayıcınızdan aşağıdaki adrese gidin:</p>
+            <pre><code>http://localhost:5000</code></pre>
+            <p>Eğer sunucuda çalıştırıyorsanız <code>http://SUNUCU_IP_ADRESI:5000</code> adresini kullanın.</p>
+        </section>
+
+        <footer class="paper-footer">
+            <div>
+                <strong>Stokçu</strong> Open Source Software<br>
+                Advanced Stock Intelligence System
+            </div>
+            <div style="text-align: right;">
+                Developed by <a href="https://github.com/AhmetKorkmazMe" style="color:var(--primary);">Ahmet Korkmaz</a>
+            </div>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('aside a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Active link highlighter
+    window.addEventListener('scroll', () => {
+        let current = '';
+        document.querySelectorAll('section').forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href').includes(current)) {
+                a.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

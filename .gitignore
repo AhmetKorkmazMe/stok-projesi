@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+
+# Proje Ciktilari ve Loglar
+logs/*
+temp_results/*
+jobs/*
+*.xlsx
+*.csv
+
+# Sistem dosyalari
+.DS_Store
+*.save
+*.swp
+
+# Konfigurasyon (Eger ozel bilgiler varsa buraya eklenmeli)
+# config_templates/* # (Simdilik sablonlar kalsin, ornek teskil eder)
